@@ -5,6 +5,9 @@ branding:
   icon: 'package'
   color: 'yellow'
 inputs:
+  cake-version:
+    description: 'The version of the Cake to install.'
+    required: false
   script-path:
     description: 'The path of the Cake script to run.'
     required: false
