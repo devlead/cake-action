@@ -5,8 +5,8 @@ on:
     branches:
       - master
 jobs:
-  build:
-    name: Test
+  testTarget:
+    name: Test specific target
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -14,8 +14,30 @@ jobs:
     steps:
       - name: Get the sources
         uses: actions/checkout@v1
+      - name: Restore the dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Run a Cake script with a specific target
         uses: ./
         with:
           script-path: build.cake
           target: Successful-Task
+  testVersion:
+    name: Test specific version
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - name: Get the sources
+        uses: actions/checkout@v1
+      - name: Restore the dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Run specific a version of Cake 
+        uses: ./
+        with:
+          cake-version: 0.34.1
+          target: Version-Check-Task

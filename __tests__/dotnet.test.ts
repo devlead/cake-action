@@ -34,6 +34,12 @@ describe('When successfully installing the Cake Tool locally', () => {
     await DotNet.installLocalCakeTool(new ToolsDirectory(targetDirectory));
     expect(fakeExec).toBeCalledWith('dotnet tool install', ['--tool-path', targetDirectory, 'Cake.Tool']);
   });
+
+  test('it should install specified version of the Cake.Tool', async () => {
+    const cakeVersion = '0.35.0';
+    await DotNet.installLocalCakeTool(new ToolsDirectory(targetDirectory), cakeVersion);
+    expect(fakeExec).toBeCalledWith('dotnet tool install', ['--version', cakeVersion, '--tool-path', targetDirectory, 'Cake.Tool']);
+  });
 });
 
 describe('When failing to install the Cake Tool locally', () => {
