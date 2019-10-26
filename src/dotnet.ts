@@ -9,12 +9,19 @@ export class DotNet {
     core.exportVariable('DOTNET_CLI_TELEMETRY_OPTOUT', '1');
   }
 
-  static async installLocalCakeTool(targetDirectory: ToolsDirectory = new ToolsDirectory()) {
-    return DotNet.installLocalTool('Cake.Tool', targetDirectory);
+  static async installLocalCakeTool(targetDirectory: ToolsDirectory = new ToolsDirectory(), version?: string) {
+    return DotNet.installLocalTool('Cake.Tool', targetDirectory, version);
   }
 
-  static async installLocalTool(toolName: string, targetDirectory: ToolsDirectory = new ToolsDirectory()) {
-    const exitCode = await exec(dotnetToolInstall, ['--tool-path', targetDirectory.path, toolName]);
+  static async installLocalTool(toolName: string, targetDirectory: ToolsDirectory = new ToolsDirectory(), version?: string) {
+    let parameters = ['--tool-path', targetDirectory.path, toolName];
+    
+    if(version != undefined && version != '')
+    {
+      parameters = ['--version', version].concat(parameters);
+    }
+    
+    const exitCode = await exec(dotnetToolInstall, parameters);
 
     if (exitCode != 0) {
       throw new Error(`Failed to install ${toolName}. Exit code: ${exitCode}`);
