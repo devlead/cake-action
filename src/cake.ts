@@ -20,6 +20,15 @@ export class CakeTool {
     }
   }
 
+  static async bootstrapScript(scriptPath: string, workingDirectory?: ToolsDirectory) {
+    const cakeToolPath = await CakeTool.resolveCakeToolPath(workingDirectory);
+    const exitCode = await exec(cakeToolPath, [scriptPath, '--bootstrap']);
+
+    if (exitCode != 0) {
+      throw new Error(`Failed to bootstrap the build script. Exit code: ${exitCode}`);
+    }
+  }
+
   private static async resolveCakeToolPath(workingDirectory?: ToolsDirectory): Promise<string> {
     return workingDirectory
       ? workingDirectory.appendFileName(dotnetCake)
