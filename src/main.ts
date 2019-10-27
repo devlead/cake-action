@@ -8,6 +8,7 @@ export async function run() {
   try {
     const cakeVersion = core.getInput('cake-version');
     const scriptPath = core.getInput('script-path');
+    const cakeBootstrap = (core.getInput('cake-bootstrap') || '').toLowerCase() === 'true';
     const target = new CakeArgument('target', core.getInput('target'));
 
     const toolsDir = new ToolsDirectory();
@@ -16,6 +17,10 @@ export async function run() {
     DotNet.disableTelemetry();
 
     await DotNet.installLocalCakeTool(toolsDir, cakeVersion);
+    if (cakeBootstrap)
+    {
+      await CakeTool.bootstrapScript(scriptPath, toolsDir);  
+    }
     await CakeTool.runScript(scriptPath, toolsDir, target);
   } catch (error) {
     core.setFailed(error.message);
