@@ -41,3 +41,22 @@ jobs:
         with:
           cake-version: 0.34.1
           target: Version-Check-Task
+  testModule:
+    name: Test bootstrapping
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - name: Get the sources
+        uses: actions/checkout@v1
+      - name: Restore the dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Run bootstrapping of Cake module
+        uses: ./
+        with:
+          cake-bootstrap: true
+          script-path: module.cake
+
