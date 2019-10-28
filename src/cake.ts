@@ -20,7 +20,10 @@ export class CakeTool {
     }
   }
 
-  static async bootstrapScript(scriptPath: string, workingDirectory?: ToolsDirectory) {
+  static async bootstrapScript(
+    scriptPath: string = 'build.cake',
+    workingDirectory?: ToolsDirectory
+  ) {
     const cakeToolPath = await CakeTool.resolveCakeToolPath(workingDirectory);
     const exitCode = await exec(cakeToolPath, [scriptPath, '--bootstrap']);
 
