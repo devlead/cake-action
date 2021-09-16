@@ -12,6 +12,7 @@ describe('When getting the Cake input arguments from the action', () => {
     when(fakeGetInput).calledWith('script-path').mockReturnValue('path/to/script.cake');
     when(fakeGetInput).calledWith('cake-version').mockReturnValue('the.version.number');
     when(fakeGetInput).calledWith('cake-bootstrap').mockReturnValue('true');
+    when(fakeGetInput).calledWith('cake-tool-manifest').mockReturnValue('true');
     when(fakeGetInput).calledWith('dry-run').mockReturnValue('');
     when(fakeGetInput).calledWith('arguments').mockReturnValue('');
   });
@@ -26,6 +27,10 @@ describe('When getting the Cake input arguments from the action', () => {
 
   test('it should return the argument for the cake-bootstrap parameter', () => {
     expect(action.getInputs().cakeBootstrap).toBe(true);
+  });
+
+  test('it should return the argument for the cake-tool-manifest parameter', () => {
+    expect(action.getInputs().cakeToolManifest).toBe(true);
   });
 });
 
@@ -148,6 +153,7 @@ describe('When getting no input arguments from the action', () => {
     when(fakeGetInput).calledWith('script-path').mockReturnValue('');
     when(fakeGetInput).calledWith('cake-version').mockReturnValue('');
     when(fakeGetInput).calledWith('cake-bootstrap').mockReturnValue('');
+    when(fakeGetInput).calledWith('cake-tool-manifest').mockReturnValue('');
     when(fakeGetInput).calledWith('target').mockReturnValue('');
     when(fakeGetInput).calledWith('verbosity').mockReturnValue('');
     when(fakeGetInput).calledWith('dry-run').mockReturnValue('');
@@ -164,6 +170,10 @@ describe('When getting no input arguments from the action', () => {
 
   test('it should return false for the cake-bootstrap parameter', () => {
     expect(action.getInputs().cakeBootstrap).toBe(false);
+  });
+
+  test('it should return false for the cake-tool-manifest parameter', () => {
+    expect(action.getInputs().cakeToolManifest).toBe(false);
   });
 
   test('it should return an empty string for the target script parameter', () => {

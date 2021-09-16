@@ -4,7 +4,8 @@ import * as script from "./cakeParameter";
 interface CakeInputs {
   readonly scriptPath?: string,
   readonly cakeVersion?: string,
-  readonly cakeBootstrap?: boolean;
+  readonly cakeBootstrap?: boolean,
+  readonly cakeToolManifest?: boolean;
 }
 
 interface ScriptInputs {
@@ -16,6 +17,7 @@ export function getInputs(): CakeInputs & ScriptInputs {
     scriptPath: core.getInput('script-path'),
     cakeVersion: core.getInput('cake-version'),
     cakeBootstrap: getBooleanInput('cake-bootstrap'),
+    cakeToolManifest: getBooleanInput('cake-tool-manifest'),
     scriptArguments: getScriptInputs()
   };
 }

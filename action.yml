@@ -30,6 +30,10 @@ inputs:
     description: 'Flag for if Cake modules should be installed/bootstrapped.'
     required: false
     default: 'false'
+  cake-tool-manifest:
+    description: 'Flag for if Cake should be installed using dotnet tool manifest.'
+    required: false
+    default: 'false'
 runs:
   using: 'node12'
   main: 'dist/index.js'
